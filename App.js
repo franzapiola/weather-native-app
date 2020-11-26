@@ -6,7 +6,7 @@ import { default as theme } from './theme.json';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import Index from './components/Index';
+import Index from './components/Index.jsx';
 
 const styles = StyleSheet.create({
   layout: {
