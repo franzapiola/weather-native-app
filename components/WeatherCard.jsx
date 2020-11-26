@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 //Redux
 import { connect } from 'react-redux';
-import { removeCard } from '../redux/actions';
+import { removeCard, addFavorite, removeFavorite } from '../redux/actions';
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 
 
 
-const WeatherCard = ({ index, removeCard, expand, addToFavorites, removeFromFavorites, favorites, data  }) => {
+const WeatherCard = ({ index, removeCard, expand, addFavorite, removeFavorite, favorites, data  }) => {
   const { name, main, weather } = data;
 
   const isFavorite = favorites.includes(name);
@@ -74,7 +74,7 @@ const WeatherCard = ({ index, removeCard, expand, addToFavorites, removeFromFavo
             </View>
             <View style={{...styles.buttonsWrapper, flex: .4}}>
               <TouchableHighlight
-                onPress={isFavorite ? removeFromFavorites : addToFavorites}
+                onPress={isFavorite ? ()=>removeFavorite(name) : ()=>addFavorite(name)}
                 style={styles.cardBody}
               >
                 <Icon
@@ -103,13 +103,15 @@ const WeatherCard = ({ index, removeCard, expand, addToFavorites, removeFromFavo
 
 const mapStateToProps = state => {
   return {
-    favorites: state.favorites
+    favorites: state.favs.list
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeCard: index => dispatch(removeCard(index))
+    removeCard: index => dispatch(removeCard(index)),
+    addFavorite: name => dispatch(addFavorite(name)),
+    removeFavorite: name => dispatch(removeFavorite(name))
   };
 };
 

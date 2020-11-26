@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
-import reducer from './reducer';
+import rootReducer from './reducer/index';
 //Middleware para acciones asincronas
 import thunk from 'redux-thunk';
 
-export default createStore(reducer, applyMiddleware(thunk));
+export default createStore(rootReducer, applyMiddleware(thunk));

@@ -1,9 +1,8 @@
-import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD } from './actions';
+import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD } from '../actions';
 
 const initialState = {
   isFetching: false,
   list: [],
-  favorites: ['Buenos Aires']
 };
 
 export default (state = initialState, action) => {
