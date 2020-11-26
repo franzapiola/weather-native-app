@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
@@ -34,15 +35,41 @@ export const removeCard = index => {
 };
 
 export const addFavorite = name => {
-  return {
-    type: ADD_FAVORITE,
-    payload: name
+  return async dispatch => {
+    const favoritesJSON = await AsyncStorage.getItem('favorites');
+    const favorites = JSON.parse(favoritesJSON);
+    if(Array.isArray(favorites)){
+      favorites.push(name);
+    } else {
+      try {
+        AsyncStorage.setItem('favorites', JSON.stringify([name]));
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    dispatch({
+      type: ADD_FAVORITE,
+      payload: name
+    });
   };
 };
 
 export const removeFavorite = name => {
-  return {
-    type: REMOVE_FAVORITE,
-    payload: name
+  return async dispatch => {
+    const favoritesJSON = await AsyncStorage.getItem('favorites');
+    const favorites = JSON.parse(favoritesJSON);
+    if(Array.isArray(favorites)){
+      try{
+        await AsyncStorage.setItem('favorites', JSON.stringify(favorites.filter( n => n != name )));
+      }
+      catch(err){
+        console.log(err);
+      }
+    }
+    dispatch({
+      type: REMOVE_FAVORITE,
+      payload: name
+    });
   };
 };
