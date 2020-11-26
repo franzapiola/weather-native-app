@@ -10,7 +10,7 @@ export const search = city => {
     dispatch({
       type: REQUEST_SEARCH
     });
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`)
       .then( res => res.data)
     //   .then( data => {
     //     console.log(data);
