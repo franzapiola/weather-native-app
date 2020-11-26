@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
+export const REMOVE_CARD = 'REMOVE_CARD';
 
 const apiKey = 'e9b96c5a24e58ea12d6b9bf89a992b9f';
 
@@ -10,7 +11,7 @@ export const search = city => {
     dispatch({
       type: REQUEST_SEARCH
     });
-    return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
+    return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`)
       .then( res => res.data)
     //   .then( data => {
     //     console.log(data);
@@ -20,5 +21,12 @@ export const search = city => {
         type: RECEIVE_SEARCH,
         payload: data 
       }));
+  };
+};
+
+export const removeCard = index => {
+  return {
+    type: REMOVE_CARD,
+    payload: index
   };
 };

@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { StyleSheet, ImageBackground } from 'react-native';
-import SearchBar from './SearchBar';
 
+import SearchBar from './SearchBar';
+import WeatherCard from './WeatherCard';
 const image = { uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn2.cloudpro.co.uk%2Fsites%2Fcloudprod7%2Ffiles%2Fclouds.jpg&f=1&nofb=1'};
 
 const Index = () => {
@@ -11,6 +12,9 @@ const Index = () => {
   return (
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={image}>
       <SearchBar />
+      {cardsList.map((obj, i) => (
+        <WeatherCard index={i} key={i} data={obj}/>
+      ))}
     </ImageBackground>
   );
 };

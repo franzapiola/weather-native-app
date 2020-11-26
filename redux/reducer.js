@@ -1,9 +1,9 @@
-import { REQUEST_SEARCH, RECEIVE_SEARCH } from './actions';
+import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD } from './actions';
 
 const initialState = {
   isFetching: false,
   list: [],
-  favorites: []
+  favorites: ['Buenos Aires']
 };
 
 export default (state = initialState, action) => {
@@ -16,10 +16,21 @@ export default (state = initialState, action) => {
         isFetching: true
       };
     case RECEIVE_SEARCH:
+      if(state.list.some( city => city.id === payload.id)){
+        return {
+          ...state,
+          isFetching: false
+        };
+      }
       return {
         ...state,
         isFetching: false,
         list: [...state.list.slice(), payload]
+      };
+    case REMOVE_CARD:
+      return {
+        ...state,
+        list: state.list.filter((curr, index) => index != payload)
       };
     default:
       return state;
