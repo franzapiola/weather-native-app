@@ -3,7 +3,7 @@ import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD } from './actions';
 const initialState = {
   isFetching: false,
   list: [],
-  favorites: []
+  favorites: ['Buenos Aires']
 };
 
 export default (state = initialState, action) => {
@@ -17,7 +17,10 @@ export default (state = initialState, action) => {
       };
     case RECEIVE_SEARCH:
       if(state.list.some( city => city.id === payload.id)){
-        return state;
+        return {
+          ...state,
+          isFetching: false
+        };
       }
       return {
         ...state,
