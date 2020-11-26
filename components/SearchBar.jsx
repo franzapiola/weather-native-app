@@ -1,9 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { connect } from 'react-redux';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Input, Button } from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/AntDesign';
+
+//Redux
+import { connect } from 'react-redux';
+import { search } from '../redux/actions';
 
 const mapStateToProps = state => {
   return {
@@ -13,14 +16,15 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    test: () => dispatch(()=>{return {};})
+    search: city => dispatch(search(city))
   };
 };
 
-function SearchBar({ isFetching }) {
+function SearchBar({ search, isFetching }) {
   const [ value, setValue ] = React.useState('');
-  const onSearch = string => {
-    console.log(string);
+  const onSearch = city => {
+    // console.log(string);
+    search(city);
     setValue('');
   };
   return (
