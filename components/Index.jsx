@@ -13,7 +13,7 @@ const Index = () => {
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={image}>
       <SearchBar />
       {cardsList.map((obj, i) => (
-        <WeatherCard key={i} data={obj}/>
+        <WeatherCard index={i} key={i} data={obj}/>
       ))}
     </ImageBackground>
   );
