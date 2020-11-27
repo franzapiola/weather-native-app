@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { Input, Button } from '@ui-kitten/components';
+import { Input, Button, Text } from '@ui-kitten/components';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 //Redux
@@ -16,35 +16,75 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    search: city => dispatch(search(city))
+    search: city => dispatch(search(city)),
+    searchFailed: () => dispatch({ type: 'FINISH_SEARCH'})
   };
 };
 
-function SearchBar({ search, isFetching }) {
-  const [ value, setValue ] = React.useState('');
+function SearchBar({ search, searchFailed, isFetching }) {
+  const [ state, setState ] = React.useState({
+    value: '',
+    error: ''
+  });
+
+  const showError = string => {
+    if(state.error) return;
+
+    setState({
+      ...state,
+      error: string
+    });
+    setTimeout(()=>{
+      setState({
+        ...state,
+        error: ''
+      });
+    }, 4000);
+  };
+
   const onSearch = city => {
-    // console.log(string);
-    search(city);
-    setValue('');
+    search(city)
+      .then(()=>{
+        setState({
+          ...state,
+          value: ''
+        });
+      })
+      .catch( err => {
+        searchFailed();
+
+        if(err.response.data.cod == 404){
+          showError('No se encontró la ciudad...');
+        } else showError('Hubo un problema con la búsqueda...');
+      });
   };
   return (
-    <View style={styles.wrapper}>
-      <Input
-        style={styles.input}
-        value={value}
-        size='large'
-        placeholder='Busca una ciudad...'
-        onChangeText={nextValue => setValue(nextValue)}
-      />
-      <Button
-        style={styles.button}
-        appearance='outline'
-        onPress={() => onSearch(value)}
-        disabled={isFetching}
-      >
-        <Icon name="search1" size={24} color="#0E0A5B" />
-      </Button>
-    </View>
+    <>
+      <View style={styles.wrapper}>
+        <Input
+          style={styles.input}
+          value={state.value}
+          size='large'
+          placeholder='Busca una ciudad...'
+          onChangeText={nextValue => setState({
+            ...state,
+            value: nextValue
+          })}
+          editable={!isFetching}
+        />
+        <Button
+          style={styles.button}
+          appearance='outline'
+          onPress={() => onSearch(state.value)}
+          disabled={isFetching}
+        >
+          <Icon name="search1" size={24} color="#0E0A5B" />
+        </Button>
+      </View>
+      <View>
+        <Text style={styles.error}>{state.error}</Text>
+      </View>
+    </>
   );
 }
 
@@ -65,6 +105,11 @@ const styles = StyleSheet.create({
     flex: 0.1,
     borderRadius: 5,
     height: Dimensions.get('window').height * 0.07
+  },
+  error: {
+    color: '#DB4023',
+    fontWeight: 'bold',
+    alignSelf: 'center'
   }
 });
 
