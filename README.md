@@ -16,7 +16,7 @@
 </p>
 
 ## Descripción
-Esta es una aplicación simple que, consumiendo la API gratuta de <a href='https://openweathermap.org/'>OpenWeather</a>, permite al usuario:
+Esta es una aplicación simple que, consumiendo la API gratuita de <a href='https://openweathermap.org/'>OpenWeather</a>, permite al usuario:
 - Acceder instantáneamente a la información meteorológica de más de 200,000 ciudades de todo el mundo
 - Guardar ciudades como favoritas. Al volver a abrir la app, éstas se mostrarán automáticamente.
 
