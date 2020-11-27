@@ -1,9 +1,9 @@
-import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD } from './actions';
+import { REQUEST_SEARCH, RECEIVE_SEARCH, REMOVE_CARD, FINISH_SEARCH, FAVS_FETCHED } from '../actions';
 
 const initialState = {
   isFetching: false,
+  favsFetched: false,
   list: [],
-  favorites: ['Buenos Aires']
 };
 
 export default (state = initialState, action) => {
@@ -24,13 +24,22 @@ export default (state = initialState, action) => {
       }
       return {
         ...state,
-        isFetching: false,
         list: [...state.list.slice(), payload]
+      };
+    case FINISH_SEARCH:
+      return {
+        ...state,
+        isFetching: false
       };
     case REMOVE_CARD:
       return {
         ...state,
         list: state.list.filter((curr, index) => index != payload)
+      };
+    case FAVS_FETCHED:
+      return {
+        ...state,
+        favsFetched: true
       };
     default:
       return state;
