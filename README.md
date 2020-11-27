@@ -24,7 +24,7 @@ Esta es una aplicación simple que, consumiendo la API gratuita de <a href='http
 <img src='https://i.imgur.com/7oqLVoj.jpg' width='150px'/>
 <img src='https://i.imgur.com/ogs5fyg.jpg' width='150px'/>
 </p>
-## 🚀 Cómo levantar la app
+## Cómo levantar la app
 
 ### Qué vas a necesitar
  - Node
