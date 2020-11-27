@@ -25,7 +25,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCities}) => {
-  const image = { uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn2.cloudpro.co.uk%2Fsites%2Fcloudprod7%2Ffiles%2Fclouds.jpg&f=1&nofb=1'};
 
   const [ state, setState ] = useState({
     showModal: false,
@@ -56,7 +55,7 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
   }, [favsFetched, favorites]);
 
   return (
-    <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={image}>
+    <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={require('../assets/clouds.jpg')}>
       <SearchBar />
       <Cards citiesList={citiesList} isFetching={isFetching} expand={expand}/>
       <Modal visible={state.showModal} onBackdropPress={hide}>
