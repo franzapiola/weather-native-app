@@ -30,12 +30,16 @@ Esta es una aplicación simple que, consumiendo la API gratuita de <a href='http
 ### Qué vas a necesitar
  - Node
  - NPM
- - Expo en tu dispositivo móbil o un emulador como Android Studio
+ - App de Expo en tu dispositivo móbil / un emulador como Android Studio
 
 ### Pasos a seguir
 
-- Clonar este repositorio
-- Ejecutar desde el directorio principal los siguientes comandos, en orden:
+- Clonar este repositorio con el siguiente comando:
+>git clone https://github.com/franzapiola/weather-native-app.git
+>
+- Ejecutar desde el directorio principal de tu copia del repositorio los siguientes comandos, en orden:
 >npm install
 >
 >npm start
+ - Se abrirá una pestaña en tu navegador de Expo.
+ - Desde aquí hay varias formas de abrir la aplicación, pero la más fácil y rápida es escaneando desde la app móbil de Expo el código QR que ves en la pestaña del navegador que se abrió.
