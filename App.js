@@ -1,5 +1,6 @@
 import * as React from 'react';
 // import { AppLoading } from 'expo';
+import Toast from 'react-native-toast-message';
 
 //Eva-design / UI-Kitten
 import * as eva from '@eva-design/eva';
@@ -31,6 +32,7 @@ export default function App() {
           <Layout style={styles.layout}>
             <Index />
           </Layout>
+          <Toast ref={ref => Toast.setRef(ref)}/>
         </ApplicationProvider>
       </PersistGate>
     </Provider>
