@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import WeatherCard from './WeatherCard';
 import { Spinner } from '@ui-kitten/components';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  }
-});
-
 export default function Cards({citiesList, isFetching, expand}) {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView >
       {citiesList.map((obj, i) => (
         <WeatherCard index={i} key={i} data={obj} expand={()=>expand(obj)}/>
       ))}
