@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getASFavs } from '../redux/actions';
 import { StyleSheet, ImageBackground } from 'react-native';
+import { Modal } from '@ui-kitten/components';
 
 import SearchBar from './SearchBar';
 import Cards from './Cards';
@@ -23,8 +24,20 @@ const mapDispatchToProps = dispatch => {
 };
 
 const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCities}) => {
-
   const image = { uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn2.cloudpro.co.uk%2Fsites%2Fcloudprod7%2Ffiles%2Fclouds.jpg&f=1&nofb=1'};
+
+  const [ state, setState ] = useState({
+    showModal: false,
+    modalData: null
+  });
+
+  const expand = modalData => {
+    setState({
+      showModal:true,
+      modalData
+    });
+  };
+
 
   useEffect(()=>{
     const get = async (arr) => await fetchFavoriteCities(arr);
@@ -37,7 +50,10 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
   return (
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={image}>
       <SearchBar />
-      <Cards citiesList={citiesList} isFetching={isFetching}/>
+      <Cards citiesList={citiesList} isFetching={isFetching} expand={expand}/>
+      <Modal visible={state.showModal}>
+
+      </Modal>
     </ImageBackground>
   );
 };

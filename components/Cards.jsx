@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function Cards({citiesList, isFetching}) {
+export default function Cards({citiesList, isFetching, expand}) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {citiesList.map((obj, i) => (
-        <WeatherCard index={i} key={i} data={obj}/>
+        <WeatherCard index={i} key={i} data={obj} expand={()=>expand(obj)}/>
       ))}
       <View style={{alignSelf:'center'}}>
         {

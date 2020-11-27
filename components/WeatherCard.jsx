@@ -64,7 +64,6 @@ const WeatherCard = ({ index, removeCard, expand, addFavorite, removeFavorite, f
     <View style={styles.wrapper}>
       <Card header={Header}>
         <View
-          onPress={expand}
           style={styles.cardBody}
         >
           <>
