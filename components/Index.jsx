@@ -7,6 +7,7 @@ import { Modal } from '@ui-kitten/components';
 
 import SearchBar from './SearchBar';
 import Cards from './Cards';
+import MoreInfo from './MoreInfo';
 
 const mapStateToProps = state => {
   return {
@@ -38,6 +39,13 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
     });
   };
 
+  const hide = () => {
+    setState({
+      showModal: false,
+      modalData: null
+    });
+  };
+
 
   useEffect(()=>{
     const get = async (arr) => await fetchFavoriteCities(arr);
@@ -51,8 +59,8 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={image}>
       <SearchBar />
       <Cards citiesList={citiesList} isFetching={isFetching} expand={expand}/>
-      <Modal visible={state.showModal}>
-
+      <Modal visible={state.showModal} onBackdropPress={hide}>
+        <MoreInfo data={state.modalData} hide={hide}/>
       </Modal>
     </ImageBackground>
   );
