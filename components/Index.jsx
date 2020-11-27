@@ -59,7 +59,7 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={require('../assets/clouds.jpg')}>
       <SearchBar />
       <Cards citiesList={citiesList} isFetching={isFetching} expand={expand}/>
-      <Modal visible={state.showModal} onBackdropPress={hide}>
+      <Modal backdropStyle={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}} visible={state.showModal} onBackdropPress={hide}>
         <MoreInfo data={state.modalData} hide={hide}/>
       </Modal>
     </ImageBackground>
