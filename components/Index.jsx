@@ -55,6 +55,7 @@ const Index = ({citiesList, isFetching, favorites, favsFetched, fetchFavoriteCit
   }, [favsFetched, favorites]);
 
   return (
+    // eslint-disable-next-line no-undef
     <ImageBackground style={styles.imgContainer} imageStyle={styles.img} source={require('../assets/clouds.jpg')}>
       <SearchBar />
       <Cards citiesList={citiesList} isFetching={isFetching} expand={expand}/>
