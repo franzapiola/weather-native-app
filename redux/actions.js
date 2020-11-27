@@ -1,11 +1,12 @@
 import axios from 'axios';
-import AsyncStorage from '@react-native-community/async-storage';
 
 export const REQUEST_SEARCH = 'REQUEST_SEARCH';
 export const RECEIVE_SEARCH = 'RECEIVE_SEARCH';
 export const REMOVE_CARD = 'REMOVE_CARD';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const FINISH_SEARCH = 'FINISH_SEARCH';
+export const FAVS_FETCHED = 'FAVS_FETCHED';
 
 const apiKey = 'e9b96c5a24e58ea12d6b9bf89a992b9f';
 
@@ -16,13 +17,12 @@ export const search = city => {
     });
     return axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`)
       .then( res => res.data)
-    //   .then( data => {
-    //     console.log(data);
-    //     return data;
-    //   })
       .then( data => dispatch({
         type: RECEIVE_SEARCH,
         payload: data 
+      }))
+      .then(() => dispatch({
+        type: FINISH_SEARCH
       }));
   };
 };
@@ -34,42 +34,46 @@ export const removeCard = index => {
   };
 };
 
-export const addFavorite = name => {
-  return async dispatch => {
-    const favoritesJSON = await AsyncStorage.getItem('favorites');
-    const favorites = JSON.parse(favoritesJSON);
-    if(Array.isArray(favorites)){
-      favorites.push(name);
-    } else {
-      try {
-        AsyncStorage.setItem('favorites', JSON.stringify([name]));
-      }
-      catch(err){
-        console.log(err);
-      }
-    }
-    dispatch({
-      type: ADD_FAVORITE,
-      payload: name
-    });
+export const addFavorite = city => {
+  return {
+    type: ADD_FAVORITE,
+    payload: city
   };
 };
 
-export const removeFavorite = name => {
+export const removeFavorite = city => {
+  return {
+    type: REMOVE_FAVORITE,
+    payload: city
+  };
+};
+
+//Esta funcion se ejecuta al iniciarse la app
+//Llama a la API de OpenWeather una vez por cada ciudad favorita que encuentra en el state
+export const getASFavs = favoriteCities => {
   return async dispatch => {
-    const favoritesJSON = await AsyncStorage.getItem('favorites');
-    const favorites = JSON.parse(favoritesJSON);
-    if(Array.isArray(favorites)){
-      try{
-        await AsyncStorage.setItem('favorites', JSON.stringify(favorites.filter( n => n != name )));
-      }
-      catch(err){
-        console.log(err);
-      }
-    }
+    //isFetching = true;
     dispatch({
-      type: REMOVE_FAVORITE,
-      payload: name
+      type: REQUEST_SEARCH
+    });
+
+    await favoriteCities.forEach(async city => {
+      await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=es`)
+        .then(res => res.data)
+        .then(res => dispatch({
+          type: RECEIVE_SEARCH,
+          payload: res
+        }))
+        .catch(err => console.log(`Error al buscar '${city}':`, err));
+    });
+
+    //isFetching = false;
+    dispatch({
+      type: FINISH_SEARCH
+    });
+    //favsFetched = true;
+    dispatch({
+      type: FAVS_FETCHED
     });
   };
 };
