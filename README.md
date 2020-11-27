@@ -30,7 +30,7 @@ Esta es una aplicación simple que, consumiendo la API gratuita de <a href='http
 ### Qué vas a necesitar
  - Node
  - NPM
- - App de Expo en tu dispositivo móbil / un emulador como Android Studio
+ - App de Expo en tu dispositivo móvil / un emulador como Android Studio
 
 ### Pasos a seguir
 
