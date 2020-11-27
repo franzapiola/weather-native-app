@@ -42,4 +42,4 @@ Esta es una aplicación simple que, consumiendo la API gratuita de <a href='http
 >
 >npm start
  - Se abrirá una pestaña en tu navegador de Expo.
- - Desde aquí hay varias formas de abrir la aplicación, pero la más fácil y rápida es escaneando desde la app móbil de Expo el código QR que ves en la pestaña del navegador que se abrió.
+ - Desde aquí hay varias formas de abrir la aplicación, pero la más fácil y rápida es escaneando desde la app móvil de Expo el código QR que ves en la pestaña del navegador que se abrió.
