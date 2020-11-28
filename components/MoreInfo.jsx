@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
 });
 
 export default function MoreInfo({ data }) {
-  console.log(data);
   const { name, main, clouds, weather, sys, wind } = data;
 
   const Header = () => (
